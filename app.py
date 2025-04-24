@@ -12,7 +12,7 @@ import os
 #key = "enter your api_key!"
 #openai.api_key = key
 
-st.set_page_config(page_title="AI Expense Tracker", layout="wide")
+st.set_page_config(page_title="Expense Tracker", layout="wide")
 st.title("💰 AI-Powered Expense Tracker")
 
 # User Login
@@ -122,32 +122,3 @@ if not expenses.empty:
     ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
     st.pyplot(fig)
     
-    # Chatbot Integration
-    st.subheader("💬 AI Chatbot for Financial Queries")
-    query = st.text_input("Ask AI about your finances, savings, or budget tips!")
-    if st.button("Ask AI") and query:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": query}]
-        )
-        st.write(response["choices"][0]["message"]["content"])
-    
-    # AI Insights Feature
-    st.sidebar.header("💸 Savings & AI Insights")
-    salary = st.sidebar.number_input(f"Enter Monthly Salary ({currency_symbols[currency]})", min_value=100, step=100)
-    total_expense = monthly_data["Amount"].sum()
-    savings = salary - total_expense
-    expense_ratio = (total_expense / salary) * 100 if salary > 0 else 0
-    
-    if expense_ratio <= 20:
-        st.sidebar.success(f"✅ Savings for {selected_month}: {currency_symbols[currency]}{savings:.2f}. Great financial management!")
-    else:
-        st.sidebar.warning(f"⚠️ Your spending is high! Consider saving more. Savings: {currency_symbols[currency]}{savings:.2f}")
-    
-    st.subheader("🤖 AI-Powered Financial Insights")
-    avg_monthly_expense = expenses.groupby("Month")["Amount"].sum().mean()
-    if total_expense > avg_monthly_expense * 1.5:
-        st.warning("⚠️ Your spending this month is significantly higher than usual! Consider reviewing your expenses.")
-    st.write("💡 Tip: Set a budget limit to avoid overspending.")
-else:
-    st.info("No expenses logged yet.")

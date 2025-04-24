@@ -78,8 +78,8 @@ if st.sidebar.button("Clear All Expenses"):
 
 # Display Expenses
 if not expenses.empty:
-    expenses["Date"] = pd.to_datetime(expenses["Date"])
-    expenses["Month"] = expenses["Date"].dt.strftime("%Y-%m")
+    expenses["Date"] = pd.to_datetime(expenses["Date"]).dt.date
+    expenses["Month"] =pd.to_datetime(expenses["Date"]).dt.strftime("%Y-%m")
     
     if user:
         expenses = expenses[expenses["User"] == user]

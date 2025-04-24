@@ -13,7 +13,7 @@ import os
 #openai.api_key = key
 
 st.set_page_config(page_title="Expense Tracker", layout="wide")
-st.title("💰 AI-Powered Expense Tracker")
+st.title("💰Expense Tracker")
 
 # User Login
 user = st.sidebar.text_input("Enter Username")

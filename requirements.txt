@@ -1,7 +1,6 @@
 streamlit
 pandas
-matplotlib
 seaborn
+matplotlib
+plotly
 joblib
-openai
-scikit-learn
